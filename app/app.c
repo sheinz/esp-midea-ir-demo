@@ -22,8 +22,10 @@ static void process_command(const char *cmd)
         ir.mode = MODE_HEAT;
     } else if (!strncmp(cmd, "temp", 4)) {
         ir.temperature = atoi(&cmd[5]);
-//    } else if (!strncmp(cmd, "fan", 3)) {
-//        ir.fan_level = atoi(&cmd[4]);
+    } else if (!strcmp(cmd, "blow")) {
+        ir.mode = MODE_FAN;
+    } else if (!strncmp(cmd, "fan", 3)) {
+        ir.fan_level = atoi(&cmd[4]);
     } else if (!strcmp(cmd, "direct")) {
         midea_ir_move_deflector(&ir);
         return;
@@ -42,7 +44,7 @@ void user_init(void)
     uart_set_baud(0, 115200);
     printf("SDK version:%s\n", sdk_system_get_sdk_version());
     printf("Please enter a command\n");
-    printf("Commands: on, off, auto, cool, heat, temp, fan, direct\n");
+    printf("Commands: on, off, auto, cool, heat, blow, temp, fan, direct\n");
     printf("> ");
 
     midea_ir_init(&ir, 14);
