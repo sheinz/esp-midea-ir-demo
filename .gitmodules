@@ -1,0 +1,3 @@
+[submodule "midea-ir"]
+	path = midea-ir
+	url = https://github.com/sheinz/esp-midea-ir
