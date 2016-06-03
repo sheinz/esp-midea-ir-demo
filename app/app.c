@@ -28,8 +28,10 @@ static void process_command(const char *cmd)
         midea_ir_move_deflector(&ir);
         return;
     } else {
+        printf("Unknown  command: %s\n", cmd);
         return;
     }
+    printf("Sending ir code\n");
     midea_ir_send(&ir); 
 }
 
@@ -43,23 +45,30 @@ void user_init(void)
     printf("Commands: on, off, auto, cool, heat, temp, fan, direct\n");
     printf("> ");
 
-    midea_ir_init(&ir);
+    midea_ir_init(&ir, 14);
 
     char line_buff[LINE_BUFF_SIZE] = {0};
+    uint8_t chars = 0;
 
     while(1) {
         int c = getchar();
-        if (c == EOF) {
+        if (c == EOF || c == '\r') {
             continue;
         }
+
+        putchar(c);  // echo
+
         if (c == '\n') {
-            process_command(line_buff);
-            line_buff[0] = '\0';
-            printf("> ");
+            if (chars != 0) {
+                process_command(line_buff);
+                chars = 0;
+                line_buff[0] = 0;
+            }
+            printf("\n> ");
         } else {
-            line_buff[strlen(line_buff)] = c;
+            line_buff[chars] = c;
+            chars++;
+            line_buff[chars] = 0;
         }
-        
-        putchar(c);
     }
 }
