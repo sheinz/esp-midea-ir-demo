@@ -1,7 +1,7 @@
 # esp-midea-ir-demo
 
 Demo application for Midea Air conditioner IR remote control using ESP8266.
-Demonstrates usage of [esp-midea-ir](https://github/sheinz/esp-midea-ir) library.
+Demonstrates usage of [esp-midea-ir](https://github.com/sheinz/esp-midea-ir) library.
 
 The library is developed to mimick a remote that looks like:
 
